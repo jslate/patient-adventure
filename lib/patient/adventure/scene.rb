@@ -23,10 +23,33 @@ module Patient
       end
 
       def enter
-        puts "\n#{Rainbow.green(text)}\n"
+        puts reformat_wrapped("\n#{Rainbow.green(text)}\n")
         @question.ask unless is_ending?
       end
     end
+
+    private
+
+      def reformat_wrapped(string, width=78)
+          lines = []
+          line = "| "
+          string.split(/\s+/).each do |word|
+            if line.size + word.size >= width
+              lines << line
+              line = "| " + word
+            elsif line.empty?
+             line = word
+            else
+             line << " " << word
+           end
+           end
+           lines << "%-#{width}.#{width}s" % line if line
+          return ('_' * width) + "\n" + lines.join(" |\n") + "\n" + ('_' * width)
+        end
+
+
+
+
 
   end
 end
