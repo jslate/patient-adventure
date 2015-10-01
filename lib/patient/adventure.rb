@@ -1,0 +1,5 @@
+require "patient/adventure/version"
+require "patient/adventure/answer"
+require "patient/adventure/game"
+require "patient/adventure/question"
+require "patient/adventure/scene"
