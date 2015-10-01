@@ -23,7 +23,7 @@ module Patient
       end
 
       def enter
-        puts "\n#{text}\n"
+        puts "\n#{Rainbow.green(text)}\n"
         @question.ask unless is_ending?
       end
     end
