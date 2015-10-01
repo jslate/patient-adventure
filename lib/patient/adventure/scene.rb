@@ -1,3 +1,5 @@
+require 'pry'
+
 module Patient
   module Adventure
 
@@ -23,32 +25,32 @@ module Patient
       end
 
       def enter
-        puts reformat_wrapped("\n#{Rainbow.green(text)}\n")
+        puts Rainbow.green(reformat_wrapped(text))
         @question.ask unless is_ending?
       end
-    end
 
     private
-
       def reformat_wrapped(string, width=78)
-          lines = []
-          line = "| "
-          string.split(/\s+/).each do |word|
-            if line.size + word.size >= width
-              lines << line
-              line = "| " + word
-            elsif line.empty?
-             line = word
-            else
-             line << " " << word
-           end
-           end
-           lines << "%-#{width}.#{width}s" % line if line
-          return ('_' * width) + "\n" + lines.join(" |\n") + "\n" + ('_' * width)
-        end
+        lines = []
+        line = ""
+        string.split(/\s+/).each do |word|
+          if line.size + word.size >= width - 4
+            lines << format_line(line, width)
+            line = word
+          elsif line.empty?
+           line = word
+          else
+           line << " " << word
+         end
+         end
+         lines << format_line(line, width) if line
+        return "\n" + ('_' * (width+2)) + "\n" + lines.join("\n") + "\n" + ('_' * (width+2)) + "\n"
+      end
 
-
-
+      def format_line(string, width)
+        "| " + "%-#{width}.#{width}s" % string + "|"
+      end
+    end
 
 
   end

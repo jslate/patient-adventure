@@ -24,7 +24,6 @@ module Patient
         puts
         print Rainbow.red("Enter your answer: ")
         answer_number = gets.chomp.to_i
-        puts "\n" * 100
         @answers[answer_number - 1].scene_key
       end
     end
